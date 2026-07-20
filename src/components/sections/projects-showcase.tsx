@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, Code2, Globe } from "lucide-react";
 import Section from "../ui/section";
 import SectionHeader from "../ui/section-header";
 import { featuredProjects } from "@/app/data/projects";
@@ -18,10 +19,9 @@ export default function ProjectsShowcase() {
                 {featuredProjects.map((project, index) => (
                     <article
                         key={project.slug}
-                        id={project.slug}
                         className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]"
                     >
-                        <div className="border-b border-white/10 p-4 sm:p-5">
+                        <Link href={`/projects/${project.slug}`} className="block border-b border-white/10 p-4 sm:p-5">
                             <div
                                 className={`relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] ${project.previewMode === "mobile"
                                     ? "mx-auto max-w-[240px] aspect-[10/16]"
@@ -37,7 +37,7 @@ export default function ProjectsShowcase() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
                             </div>
-                        </div>
+                        </Link>
 
                         <div className="flex items-center justify-between px-6 pt-6">
                             <span className="text-sm font-mono text-[var(--text-muted)]">
@@ -51,9 +51,11 @@ export default function ProjectsShowcase() {
                                 <p className="text-sm uppercase tracking-[0.3em] text-[var(--text-muted)]">
                                     {project.subtitle}
                                 </p>
-                                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text)]">
-                                    {project.title}
-                                </h3>
+                                <Link href={`/projects/${project.slug}`}>
+                                    <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text)] transition-colors group-hover:text-white">
+                                        {project.title}
+                                    </h3>
+                                </Link>
                             </div>
 
                             <p className="text-sm leading-7 text-[var(--text-secondary)]">
@@ -76,6 +78,26 @@ export default function ProjectsShowcase() {
                                     {technology}
                                 </span>
                             ))}
+                        </div>
+
+                        <div className="border-t border-white/10 px-6 py-5">
+                            <Link
+                                href={`/projects/${project.slug}`}
+                                className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text)] transition-colors hover:text-white"
+                            >
+                                Open case study
+                                <ArrowUpRight className="h-4 w-4" />
+                            </Link>
+                            <div className="mt-4 flex flex-wrap gap-3 text-xs text-[var(--text-muted)]">
+                                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
+                                    <Globe className="h-3.5 w-3.5" />
+                                    {project.category}
+                                </span>
+                                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
+                                    <Code2 className="h-3.5 w-3.5" />
+                                    Source links on detail page
+                                </span>
+                            </div>
                         </div>
                     </article>
                 ))}

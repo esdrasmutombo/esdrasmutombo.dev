@@ -1,7 +1,7 @@
 export const social = {
-    github: "",
+    github: "https://github.com/esdrasmutombo",
 
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/mutombo-mupompa/",
 
     email: "",
 

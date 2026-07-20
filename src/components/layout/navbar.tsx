@@ -2,16 +2,22 @@
 
 import { useEffect, useState } from "react";
 import Container from "../ui/container";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { site } from "@/components/content/site";
-
-const navItems = [
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
-];
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const pathname = usePathname();
+
+    const navItems = [
+        { label: "About", href: "/#about" },
+        {
+            label: "Projects",
+            href: pathname.startsWith("/projects") ? "/projects" : "/#projects",
+        },
+        { label: "Contact", href: "/#contact" },
+    ];
 
     useEffect(() => {
         const onScroll = () => {
@@ -40,21 +46,19 @@ export default function Navbar() {
                         }`}
                 >
 
-                    {/* Brand */}
-                    <a
-                        href="#"
+                    <Link
+                        href="/"
                         className="flex items-center gap-3 text-sm font-semibold tracking-wide text-[var(--text)]"
                     >
                         <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs tracking-[0.3em] text-[var(--text)]">
                             EM
                         </span>
                         <span className="hidden sm:block">{site.name}</span>
-                    </a>
+                    </Link>
 
-                    {/* Navigation */}
                     <nav className="hidden md:flex items-center gap-8">
                         {navItems.map((item) => (
-                            <a
+                            <Link
                                 key={item.href}
                                 href={item.href}
                                 className="
@@ -65,7 +69,7 @@ export default function Navbar() {
                 "
                             >
                                 {item.label}
-                            </a>
+                            </Link>
                         ))}
                     </nav>
 
